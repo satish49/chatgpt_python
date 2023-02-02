@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<head>
+  <title>OpenAI Quickstart</title>
+  <link
+    rel="shortcut icon"
+    href="{{ url_for('static', filename='maxlearn.png') }}"
+  />
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
+</head>
+
+<body>
+  <img src="{{ url_for('static', filename='maxlearn.png') }}" class="logo" />
+  <h3>Ask me here!!!</h3>
+  <form action="/" method="post">
+    <input type="text" name="query" placeholder="Type Here!!!" required />
+    <input type="submit" value="Click me@@@" />
+  </form>
+  {% if results %}  
+    <br><h1> Result here</h1>
+    {% for result in results.split("\n") %}
+      {{result}}<br>
+    {% endfor %}
+    <br><span style="font-size: 20 px;">Token Consume Information</h3>
+    <table>
+      <th><td></td><td></td></th>
+      {% if tokensInfo %} 
+      {% for token, value in tokensInfo.items() %}
+      <tr>
+      {% if token=="prompt_tokens" %}  
+          <td>Requested Text </td><td>{{value}}<br></td>
+        {% elif token == "completion_tokens" %}
+      <td>Response Text </td><td>{{value}}<br></td>
+        {% else %}
+      <td>Total Consumed</td><td><b>{{value}}</b><br></td>
+        {% endif %}
+      </tr>  
+
+      {% endfor %}
+  </table>    
+  {% endif %}
+  {% endif %}
+  
+</body>
